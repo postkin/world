@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "Asteroid API",
-    "description": "This is an API for managing asteroids.",
+    "description": "This is an API for managing asteroids. Going to test sync now.",
     "license": {
       "name": "Attribution ShareAlike (CC BY-SA)",
       "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode"
