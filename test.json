@@ -1,0 +1,268 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Asteroid API",
+    "description": "This is an API for managing asteroids.",
+    "license": {
+      "name": "Attribution ShareAlike (CC BY-SA)",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode"
+    }
+  },
+  "servers": [
+    {
+      "description": "development",
+      "url": "http://asteroid.api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/asteroids": {
+      "get": {
+        "summary": "List Asteroids",
+        "description": "Get of all asteroids.",
+        "operationId": "getAsteroids",
+        "tags": [
+          "Asteroids"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items to return at one time (max 100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paged array of asteroids",
+            "headers": {
+              "x-next": {
+                "description": "A link to the next page of responses",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asteroids"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Asteroid",
+        "operationId": "createAsteroids",
+        "requestBody": {
+          "description": "Asteroid body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Asteroid"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Asteroids"
+        ],
+        "responses": {
+          "201": {
+            "description": "Null response"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/asteroids/{asteroid_id}": {
+      "get": {
+        "summary": "Get Asteroid",
+        "description": "Gets a single asteroid.",
+        "operationId": "getAsteroid",
+        "tags": [
+          "Asteroids"
+        ],
+        "parameters": [
+          {
+            "name": "asteroid_id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the asteroid to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asteroid"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Asteroid",
+        "description": "Updates a asteroid.",
+        "operationId": "updateAsteroid",
+        "parameters": [
+          {
+            "name": "asteroid_id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the asteroid to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Asteroid body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Asteroid"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Empty Response"
+          }
+        },
+        "tags": [
+          "Asteroids"
+        ]
+      },
+      "delete": {
+        "summary": "Delete Asteroid",
+        "description": "Delete a asteroid.",
+        "operationId": "deleteAsteroid",
+        "tags": [
+          "Asteroids"
+        ],
+        "parameters": [
+          {
+            "name": "asteroid_id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the asteroid to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Delete Accepted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asteroid": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "given_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "nasa_url": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          }
+        }
+      },
+      "Asteroids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Asteroid"
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
