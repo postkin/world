@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.1.0",
-    "title": "Asteroid API",
+    "title": "Asteroids",
     "description": "This is an API for managing asteroids, to understand where I want to begin mining.",
     "license": {
       "name": "Attribution ShareAlike (CC BY-SA)",
