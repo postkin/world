@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.1.0",
-    "title": "Asteroids",
-    "description": "This is an API for managing asteroids, to understand where I want to begin mining.",
+    "version": "1.0.0",
+    "title": "Asteroid API",
+    "description": "This is an API for managing asteroids.",
     "license": {
       "name": "Attribution ShareAlike (CC BY-SA)",
       "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode"
@@ -28,7 +28,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "How many items to return at one time (max 250)",
+            "description": "How many items to return at one time (max 100)",
             "required": false,
             "schema": {
               "type": "integer",
